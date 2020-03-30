@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -25,33 +26,53 @@ public class Account {
 
     private String password;
 
-    private boolean emailVerified;
+    private boolean emailVerified; //이메일 인정 여부확인 flag
 
-    private String emailCheckToken;
+    private String emailCheckToken; //이메일 검증 토큰
 
-    private LocalDateTime joinedAt;
+    private LocalDateTime emailCheckTokenGeneratedAt; //이메일 토큰 발급시간
 
-    private String bio;
+    private LocalDateTime joinedAt; //이메일 인증 시점
 
-    private String url;
+    private String bio; //자기소개
 
-    private String occupation;
+    private String url; //웹사이트 url
 
-    private String location;
+    private String occupation; //직업
 
-    @Lob @Basic(fetch = FetchType.EAGER)
-    private String profileImage;
+    private String location; //주소 도시이름
 
-    private boolean studyCreatedByEmail;
+    @Lob //String 기본 설정 varchar(255)
+    @Basic(fetch = FetchType.EAGER)
+    private String profileImage; //프로필 이미지
 
-    private boolean studyCreatedByWeb;
+    private boolean studyCreatedByEmail; //알림 설정 이메일
 
-    private boolean studyEnrollmentResultByEmail;
+    private boolean studyCreatedByWeb; //알림 설정 웹
 
-    private boolean studyEnrollmentResultByWeb;
+    private boolean studyEnrollmentResultByWeb; //스터디 모임의 가입신청결과 알림 설정
 
-    private boolean studyUpdatedByEmail;
+    private boolean studyUpdatedByWeb; //스터디 모임 변경사항 알림 설정
 
-    private boolean studyUpdatedByWeb;
+    //이메일인증시 발송할 토큰 생성
+    public void generateEmailCheckToken() {
+        this.emailCheckToken = UUID.randomUUID().toString();
+        this.emailCheckTokenGeneratedAt = LocalDateTime.now();
+    }
 
+    //회원가입 이메일인증 확인
+    public void completeSignUp() {
+        this.emailVerified = true;
+        this.joinedAt = LocalDateTime.now();
+    }
+
+    //발송한 토큰 확인
+    public boolean isValidToken(String token) {
+        return this.emailCheckToken.equals(token);
+    }
+
+    //이메일 인증 토큰 발송 시간 제한
+    public boolean canSendConfirmEmail() {
+        return this.emailCheckTokenGeneratedAt.isBefore(LocalDateTime.now().minusHours(1));
+    }
 }
