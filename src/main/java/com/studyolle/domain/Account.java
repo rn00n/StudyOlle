@@ -75,4 +75,27 @@ public class Account {
     public boolean canSendConfirmEmail() {
         return this.emailCheckTokenGeneratedAt.isBefore(LocalDateTime.now().minusHours(1));
     }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", password='" + password + '\'' +
+                ", emailVerified=" + emailVerified +
+                ", emailCheckToken='" + emailCheckToken + '\'' +
+                ", emailCheckTokenGeneratedAt=" + emailCheckTokenGeneratedAt +
+                ", joinedAt=" + joinedAt +
+                ", bio='" + bio + '\'' +
+                ", url='" + url + '\'' +
+                ", occupation='" + occupation + '\'' +
+                ", location='" + location + '\'' +
+                ", profileImage='" + profileImage + '\'' +
+                ", studyCreatedByEmail=" + studyCreatedByEmail +
+                ", studyCreatedByWeb=" + studyCreatedByWeb +
+                ", studyEnrollmentResultByWeb=" + studyEnrollmentResultByWeb +
+                ", studyUpdatedByWeb=" + studyUpdatedByWeb +
+                '}';
+    }
 }

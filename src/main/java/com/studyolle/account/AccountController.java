@@ -3,13 +3,11 @@ package com.studyolle.account;
 import com.studyolle.domain.Account;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -51,6 +49,7 @@ public class AccountController {
     }
 
     /*이메일 토큰 검증*/
+//    @Transactional
     @GetMapping("/check-email-token")
     public String checkEmailToken(String token, String email, Model model) {
         Account account = accountRepository.findByEmail(email);
@@ -68,9 +67,7 @@ public class AccountController {
             return view;
         }
 
-        account.completeSignUp();
-
-        accountService.login(account);
+        accountService.completeSignUp(account);
 
         model.addAttribute("numberOfUser", accountRepository.count());
         model.addAttribute("nickname", account.getNickname());
@@ -85,16 +82,29 @@ public class AccountController {
     }
 
     @GetMapping("/resend-confirm-email")
-    public String resendEmail(@CurrentUser Account account, Model model) {
+    public String resendConfirmEmail(@CurrentUser Account account, Model model) {
         if(!account.canSendConfirmEmail()) {
             model.addAttribute("error", "인증 이메일은 1시간에 한번만 전송할 수 있습니다.");
             model.addAttribute("email", account.getEmail());
             return "account/check-email";
         }
-        System.out.println("여기오나?");
+
         accountService.sendSignUpConfirmEmail(account);
-        System.out.println("여긴오나?");
+
         return "redirect:/";
     }
 
+    @GetMapping("/profile/{nickname}")
+    public String viewProfile(@PathVariable String nickname, Model model, @CurrentUser Account account) {
+        Account byNickname = accountRepository.findByNickname(nickname);
+        if(byNickname == null) {
+            System.out.println("ddadf");
+            throw new IllegalArgumentException(nickname + "에 해당하는 사용자가 없습니다.");
+        }
+
+        model.addAttribute("account", byNickname);
+        model.addAttribute("isOwner", byNickname.equals(account)); //프로필의 주인인지 확인
+
+        return "account/profile";
+    }
 }
