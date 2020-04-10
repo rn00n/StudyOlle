@@ -2,8 +2,8 @@ package com.studyolle.account;
 
 import com.studyolle.domain.Account;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.WebDataBinder;
@@ -34,12 +34,10 @@ public class AccountController {
     @PostMapping("/sign-up")
     public String signUpSubmit(@Valid @ModelAttribute SignUpForm signUpForm,
                                Errors errors) {
-
         if (errors.hasErrors()) {
             //검증은 프론트와 백 모두 해야한다 fail fast
             return "account/sign-up";
         }
-
         //새 계정 처리
         Account account = accountService.processNewAccount(signUpForm);
 

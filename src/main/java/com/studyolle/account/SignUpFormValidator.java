@@ -20,7 +20,7 @@ public class SignUpFormValidator implements Validator {
 
     @Override
     public void validate(Object object, Errors errors) {
-        // TODO email, nickname 중복검사
+
         SignUpForm signUpForm = (SignUpForm)object;
         //해당 이메일에 해당하는 것이 있는지
         if(accountRepository.existsByEmail(signUpForm.getEmail())) {

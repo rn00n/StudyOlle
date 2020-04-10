@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fregments.html :: head"></head>
+<head th:replace="fragments.html :: head"></head>
 <body class="bg-light">
 
-<div th:replace="fregments.html :: main-nav"></div>
+<div th:replace="fragments.html :: main-nav"></div>
 
 <div class="container">
     <div class="py-5 text-center" th:if="${error != null}">
@@ -23,6 +23,6 @@
         </div>
     </div>
 </div>
-<div th:replace="fregments.html :: footer"></div>
+<div th:replace="fragments.html :: footer"></div>
 </body>
 </html>

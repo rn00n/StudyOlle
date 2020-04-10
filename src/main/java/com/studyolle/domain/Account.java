@@ -48,11 +48,15 @@ public class Account {
 
     private boolean studyCreatedByEmail; //알림 설정 이메일
 
-    private boolean studyCreatedByWeb; //알림 설정 웹
+    private boolean studyCreatedByWeb = true; //알림 설정 웹
 
-    private boolean studyEnrollmentResultByWeb; //스터디 모임의 가입신청결과 알림 설정
+    private boolean studyEnrollmentResultByEmail; //스터디 모임의 가입신청결과 알림 설정
 
-    private boolean studyUpdatedByWeb; //스터디 모임 변경사항 알림 설정
+    private boolean studyEnrollmentResultByWeb = true; //스터디 모임의 가입신청결과 알림 설정
+
+    private boolean studyUpdatedByEmail; //스터디 모임 변경사항 알림 설정
+
+    private boolean studyUpdatedByWeb = true; //스터디 모임 변경사항 알림 설정
 
     //이메일인증시 발송할 토큰 생성
     public void generateEmailCheckToken() {
@@ -94,7 +98,9 @@ public class Account {
                 ", profileImage='" + profileImage + '\'' +
                 ", studyCreatedByEmail=" + studyCreatedByEmail +
                 ", studyCreatedByWeb=" + studyCreatedByWeb +
+                ", studyEnrollmentResultByEmail=" + studyEnrollmentResultByEmail +
                 ", studyEnrollmentResultByWeb=" + studyEnrollmentResultByWeb +
+                ", studyUpdatedByEmail=" + studyUpdatedByEmail +
                 ", studyUpdatedByWeb=" + studyUpdatedByWeb +
                 '}';
     }
