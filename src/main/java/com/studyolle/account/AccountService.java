@@ -2,7 +2,6 @@ package com.studyolle.account;
 
 import com.studyolle.domain.Account;
 import com.studyolle.settings.Notifications;
-import com.studyolle.settings.PasswordForm;
 import com.studyolle.settings.Profile;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;

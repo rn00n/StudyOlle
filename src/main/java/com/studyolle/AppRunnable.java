@@ -17,7 +17,7 @@ public class AppRunnable implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        System.out.println("테스트 실행시 주석");
+//        System.out.println("테스트 실행시 주석");
 //        SignUpForm signUpForm = new SignUpForm();
 //        signUpForm.setEmail("rn00n@naver.com");
 //        signUpForm.setNickname("byungryang");
