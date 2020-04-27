@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -57,6 +58,9 @@ public class Account {
     private boolean studyUpdatedByEmail; //스터디 모임 변경사항 알림 설정
 
     private boolean studyUpdatedByWeb = true; //스터디 모임 변경사항 알림 설정
+
+    @ManyToMany
+    private Set<Tag> tag;
 
     //이메일인증시 발송할 토큰 생성
     public void generateEmailCheckToken() {

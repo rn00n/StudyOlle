@@ -1,9 +1,6 @@
 package com.studyolle;
 
 import com.studyolle.account.AccountService;
-import com.studyolle.account.SignUpForm;
-import com.studyolle.domain.Account;
-import com.studyolle.main.MainController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
